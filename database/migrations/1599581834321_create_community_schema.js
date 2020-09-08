@@ -6,7 +6,9 @@ const Schema = use('Schema')
 class CreateCommunitySchema extends Schema {
   up () {
     this.create('create_communities', (table) => {
-      table.increments()
+      table.increments('communities_id')
+      table.string('post')
+      table.string('comment_post')
       table.timestamps()
     })
   }
