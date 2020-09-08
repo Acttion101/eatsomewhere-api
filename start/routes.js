@@ -21,4 +21,6 @@ Route.get('/', () => {
 })
 oute.group(()=>{
   Route.resource('/users','UserController')
+  Route.resource('/user_post_communitys','UserPostCommunityController')
+  Route.resource('/communitys','CommunityController')
 })
