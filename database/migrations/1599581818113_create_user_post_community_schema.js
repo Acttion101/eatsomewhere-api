@@ -6,12 +6,14 @@ const Schema = use('Schema')
 class CreateUserPostCommunitySchema extends Schema {
   up () {
     this.create('create_user_post_communities', (table) => {
-      table.increments('user_id')
-      table.string('frist_name')
-      table.string('last_name')
-      table.string('age')
-      table.string('user_name')
+      table.increments('id')
       table.timestamps()
+      table
+        .foreign('user_id')
+        .references('users.user_id')
+        table
+        .foreign('community_id')
+        .references('communitys.community_id')
     })
   }
 
