@@ -19,7 +19,7 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
-oute.group(()=>{
+  Route.group(()=>{
   Route.resource('/users','UserController')
   Route.resource('/user_post_communitys','UserPostCommunityController')
   Route.resource('/communitys','CommunityController')
