@@ -55,7 +55,6 @@ class UserController {
         .table('users')
         .where({user_id:studentId})
         .first()
-
         return{status : 200,error : undefined , data : { user } }
     }
 }
