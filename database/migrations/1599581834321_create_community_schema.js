@@ -4,18 +4,18 @@
 const Schema = use('Schema')
 
 class CreateCommunitySchema extends Schema {
-  up () {
-    this.create('create_communities', (table) => {
-      table.increments('communities_id')
-      table.string('post')
-      table.string('comment_post')
-      table.timestamps()
-    })
-  }
+    up() {
+        this.create('communities', (table) => {
+            table.increments('communities_id', 5).notNullable()
+            table.string('post').notNullable()
+            table.string('comment_post').notNullable()
+            table.timestamps()
+        })
+    }
 
-  down () {
-    this.drop('create_communities')
-  }
+    down() {
+        this.drop('communities')
+    }
 }
 
 module.exports = CreateCommunitySchema
