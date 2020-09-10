@@ -4,22 +4,22 @@
 const Schema = use('Schema')
 
 class CreateUserSchema extends Schema {
-  up () {
-    this.create('create_users', (table) => {
-      table.increments('user_id')
-      table.string('frist_name').notNullble()
-      table.string('last_name').notNullble()
-      table.string('age').notNullble()
-      table.string('username').notNullble().unique()
-      table.string('password').notNullble()
-      table.string('status')
-      table.timestsamps()
-    })
-  }
+    up() {
+        this.create('users', (table) => {
+            table.increments('user_id', 5)
+            table.string('frist_name', 150).notNullable()
+            table.string('last_name', 150).notNullable()
+            table.string('age', 3).notNullable()
+            table.string('username', 100).notNullable().unique()
+            table.string('password').notNullable()
+            table.string('status', 10)
+            table.timestsamps()
+        })
+    }
 
-  down () {
-    this.drop('create_users')
-  }
+    down() {
+        this.drop('users')
+    }
 }
 
 module.exports = CreateUserSchema
