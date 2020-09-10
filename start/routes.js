@@ -17,10 +17,14 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+    return { greeting: 'Hello world in JSON' }
 })
-oute.group(()=>{
-  Route.resource('/users','UserController')
-  Route.resource('/user_post_communitys','UserPostCommunityController')
-  Route.resource('/communitys','CommunityController')
+
+Route.group(() => {
+    Route.resource('/users', 'UserController')
+    Route.resource('/user_post_communitys', 'UserPostCommunityController')
+    Route.resource('/communitys', 'CommunityController')
+    Route.resource('/admins', 'AdminController')
+    Route.resource('/admin_update_news', 'AdminUpdateNewController')
+    Route.resource('/news', 'NewController')
 })
