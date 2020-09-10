@@ -13,7 +13,7 @@ class CreateUserPostCommunitySchema extends Schema {
                 .foreign('user_id')
                 .references('users.user_id')
             table
-                .foreign('community_id')
+                .foreign('communities_id')
                 .references('communities.communities_id')
         })
     }
