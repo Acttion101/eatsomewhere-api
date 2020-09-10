@@ -1,7 +1,26 @@
 'use strict'
 
 class AdminController {
+    async store({ request }) {
+        const { first_name, last_name, admin_name, password, status } = request.body
 
+        const validatedData = await NewValidator(request.body)
+
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
+
+
+        const news = new New();
+        news.first_name = first_name;
+        news.last_name = last_name;
+        news.admin_name = admin_name;
+        news.password = password;
+        news.status = status;
+        await new.save()
+
+        return { status: 200, error: undefined, data: news }
+
+    }
     async update({ request }) {
 
         const { body, params } = request
