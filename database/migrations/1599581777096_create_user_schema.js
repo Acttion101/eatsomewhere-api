@@ -13,7 +13,7 @@ class CreateUserSchema extends Schema {
             table.string('username', 100).notNullable().unique()
             table.string('password').notNullable()
             table.string('status', 10)
-            table.timestsamps()
+            table.timestamps()
         })
     }
 
