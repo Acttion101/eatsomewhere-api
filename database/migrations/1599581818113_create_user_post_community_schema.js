@@ -4,22 +4,23 @@
 const Schema = use('Schema')
 
 class CreateUserPostCommunitySchema extends Schema {
-  up () {
-    this.create('create_user_post_communities', (table) => {
-      table.increments('id')
-      table.timestamps()
-      table
-        .foreign('user_id')
-        .references('users.user_id')
-        table
-        .foreign('community_id')
-        .references('communitys.community_id')
-    })
-  }
+    up() {
+        this.create('user_post_communities', (table) => {
+            table.increments('id', 5).notNullble()
+            table.integer("user_id").notNullable().unsigned()
+            table.integer("communities_id").notNullable().unsigned()
+            table
+                .foreign('user_id')
+                .references('users.user_id')
+            table
+                .foreign('community_id')
+                .references('communities.communities_id')
+        })
+    }
 
-  down () {
-    this.drop('create_user_post_communities')
-  }
+    down() {
+        this.drop('user_post_communities')
+    }
 }
 
 module.exports = CreateUserPostCommunitySchema
