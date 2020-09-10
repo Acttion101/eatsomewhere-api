@@ -7,8 +7,8 @@ class CreateUserPostCommunitySchema extends Schema {
     up() {
         this.create('user_post_communities', (table) => {
             table.increments('id', 5)
-            table.integer("user_id").notNullable().unsigned()
-            table.integer("communities_id").notNullable().unsigned()
+            table.integer('user_id').notNullable().unsigned()
+            table.integer('communities_id').notNullable().unsigned()
             table
                 .foreign('user_id')
                 .references('users.user_id')
