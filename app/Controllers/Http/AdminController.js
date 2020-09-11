@@ -1,37 +1,54 @@
 'use strict'
+const AdminValidator = require("../../../service/AdminValidator")
+const Database = use('Database')
+const Admin = use("App/Models/Admin")
+const AdminUtil = require("../../../util/AdminUtil")
+
+function numberTypeParamValidator(number) {
+    if (Number.isNaN(parseInt(number)))
+        return { error: `param: ${number} is not supported, please use number type param instead.` }
+    return {}
+}
 
 class AdminController {
+    async index({ request }) {
+        const { references } = request.qs
+        const adminUtil = new AdminUtil(Admin)
+        const admins = await adminUtil.getAll(references)
+
+        return { status: 200, error: undefined, data: admins }
+    }
+    async show({ request }) {
+        const { id } = request.params
+        const { references } = request.qs
+        const adminUtil = new AdminUtil(Admin)
+        const admin = adminUtil.getById(id, references)
+        return { status: 200, error: undefined, data: admin || {} }
+
+    }
     async store({ request }) {
-        const { first_name, last_name, admin_name, password, status } = request.body
-
-        const validatedData = await NewValidator(request.body)
-
-        if (validatedData.error)
-            return { status: 422, error: validatedData.error, data: undefined }
+        const { first_name, last_name, age, admin_name, password, status } = request.body
+        const { references } = request.qs
 
 
-        const news = new New();
-        news.first_name = first_name;
-        news.last_name = last_name;
-        news.admin_name = admin_name;
-        news.password = password;
-        news.status = status;
-        await new.save()
 
-        return { status: 200, error: undefined, data: news }
+        const adminUtil = new AdminUtil(Admin)
+        const admin = await adminUtil.create({ first_name, last_name, age, admin_name, password, status }, references)
+
+        return { status: 200, error: undefined, data: admin }
 
     }
     async update({ request }) {
 
         const { body, params } = request
         const { id } = params
-        const { first_name, last_name, age, admin_name, status } = body
+        const { first_name, last_name, age, admin_name, password, status } = body
 
 
         const adminId = await Database
             .table('admins')
             .where({ admin_id: id })
-            .update({ first_name, last_name, age, admin_name, status })
+            .update({ first_name, last_name, age, admin_name, password, status })
 
         const admin = await Database
             .table('admins')
