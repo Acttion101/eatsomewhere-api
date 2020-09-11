@@ -1,23 +1,41 @@
 'use strict'
+const AdminUpdateValidator = require("../../../service/AdminUpdateValidator")
+const Database = use('Database')
+const Admin = use("App/Models/Admin")
+const AdminUpdateUtil = require("../../../util/AdminUpdateUtil")
+
+function numberTypeParamValidator(number) {
+    if (Number.isNaN(parseInt(number)))
+        return { error: `param: ${number} is not supported, please use number type param instead.` }
+    return {}
+}
 
 class AdminUpdateNewController {
+    async index({ request }) {
+        const { references } = request.qs
+        const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
+        const adminUpdates = await adminUpdateUtil.getAll(references)
+
+        return { status: 200, error: undefined, data: adminUpdates }
+    }
+    async show({ request }) {
+        const { id } = request.params
+        const { references } = request.qs
+        const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
+        const adminUpdate = adminUpdateUtil.getById(id, references)
+        return { status: 200, error: undefined, data: adminUpdate || {} }
+
+    }
     async store({ request }) {
         const { news, detail } = request.body
+        const { references } = request.qs
 
-        const rules = {
-            news: 'required',
-            datail: 'required',
-        }
-        const validation = await Validator.validateAll(request.body, rules)
 
-        if (validation.fails())
-            return { status: 422, error: validation.messages(), data: undefined }
 
-        const subject = new Subject();
-        subject.admin_id = admin_id;
-        await subject.save()
+        const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
+        const adminUpdate = await adminUpdateUtil.create({ news, detail }, references)
 
-        return { status: 200, error: undefined, data: subject }
+        return { status: 200, error: undefined, data: adminUpdate }
 
     }
     async update({ request }) {
@@ -27,17 +45,17 @@ class AdminUpdateNewController {
         const { news, detail } = body
 
 
-        const updateNewsId = await Database
+        const adminUpdateId = await Database
             .table('update_news')
             .where({ update_news_id: id })
             .update({ news, detail })
 
-        const update_news = await Database
+        const adminUpdate = await Database
             .table('update_news')
-            .where({ update_news_id: updateNewsId })
+            .where({ update_news_id: adminUpdateId })
             .first()
 
-        return { status: 200, error: undefined, data: update_news }
+        return { status: 200, error: undefined, data: adminUpdate }
     }
     async destroy({ request }) {
         const { id } = request.params
