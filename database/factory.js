@@ -25,6 +25,17 @@ Factory.blueprint('App/Models/Admin', (faker) => {
     }
 })
 
+Factory.blueprint('App/Models/User', (faker) => {
+    return {
+        first_name: faker.first(),
+        last_name: faker.last(),
+        age:faker.age(),
+        user_name:faker.word(),
+        password:faker.word({ length: 8 }),
+        status: faker.word()
+    }
+})
+
 Factory.blueprint('App/Models/news', (faker) => {
     return {
         news: faker.word({ syllables: 5 }),
