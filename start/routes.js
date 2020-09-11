@@ -27,4 +27,4 @@ Route.group(() => {
     Route.resource('/admins', 'AdminController')
     Route.resource('/admin_update_news', 'AdminUpdateNewController')
     Route.resource('/news', 'NewController')
-})
+}).prefix('api/v2')
