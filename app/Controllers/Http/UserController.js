@@ -45,7 +45,6 @@ class UserController {
         const {body,params}=request
         const {id}=params
         const {first_name,last_name,age,user_name,password,status} = body 
-
         const userId = await Database
         .table('users')
         .where({user_id:id})
