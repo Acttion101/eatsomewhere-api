@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class CreateAdminUpdateNewsSchema extends Schema {
     up() {
-        this.create('update_news', (table) => {
+        this.create('admin_update_news', (table) => {
             table.increments("update_news_id", 5)
             table.string("news", 120).notNullable()
             table.string("detail").notNullable()
@@ -14,7 +14,7 @@ class CreateAdminUpdateNewsSchema extends Schema {
     }
 
     down() {
-        this.drop('update_news')
+        this.drop('admin_update_news')
     }
 }
 
