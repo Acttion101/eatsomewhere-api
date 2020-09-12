@@ -26,5 +26,5 @@ Route.group(() => {
     Route.resource('/communitys', 'CommunityController')
     Route.resource('/admins', 'AdminController')
     Route.resource('/admin_update_news', 'AdminUpdateNewController')
-    Route.resource('/news', 'NewController')
+    Route.resource('/news', 'NewsController')
 }).prefix('api/v2')

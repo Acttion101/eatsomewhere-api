@@ -13,7 +13,7 @@
 
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
-    .create({ status: 'admin' })
+
 Factory.blueprint('App/Models/Admin', (faker) => {
 
     return {
@@ -22,7 +22,7 @@ Factory.blueprint('App/Models/Admin', (faker) => {
         admin_name: faker.word(),
         age: faker.age(),
         password: faker.word({ length: 8 }),
-        status: faker.status
+        status: faker.word()
     }
 })
 
