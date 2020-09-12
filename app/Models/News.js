@@ -6,10 +6,16 @@ const Model = use('Model')
 class News extends Model {
 
     static get primaryKey() {
-        return 'new_id'
+        return 'news_id'
     }
-    update_news() {
-        return this.belongsTo('App/Models/AdminUpdateNews')
+    static get createdAtColumn() {
+        return null;
+    }
+    static get updatedAtColumn() {
+        return null;
+    }
+    admin_update_new() {
+        return this.belongsTo('App/Models/AdminUpdateNew')
     }
 }
 
