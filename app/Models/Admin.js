@@ -18,7 +18,7 @@ class Admin extends Model {
         return 'admin_id'
     }
 
-    store() {
+    stores() {
         return this.hasMany('App/Models/Store')
     }
 }
