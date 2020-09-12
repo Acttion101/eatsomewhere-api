@@ -3,6 +3,7 @@ const AdminValidator = require("../../../service/AdminValidator")
 const Database = use('Database')
 const Admin = use("App/Models/Admin")
 const AdminUtil = require("../../../util/AdminUtil")
+const Hash = use('Hash')
 
 function numberTypeParamValidator(number) {
     if (Number.isNaN(parseInt(number)))
@@ -44,11 +45,12 @@ class AdminController {
         const { id } = params
         const { first_name, last_name, age, admin_name, password, status } = body
 
+        const hashedPassword = await Hash.make(password)
 
         const adminId = await Database
             .table('admins')
             .where({ admin_id: id })
-            .update({ first_name, last_name, age, admin_name, password, status })
+            .update({ first_name, last_name, age, admin_name, password: hashedPassword, status })
 
         const admin = await Database
             .table('admins')
