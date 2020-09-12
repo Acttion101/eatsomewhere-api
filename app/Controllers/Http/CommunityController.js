@@ -1,58 +1,66 @@
 'use strict'
 const Database = use('Database')
-const Validator = use('Validator')
+const CommunityValidator = require("../../../service/CommunityValidator")
+const Community =use("App/Models/Community")
+const CommunityUtil= require("../../../util/CommunityUtil")
+
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
         return { error:  `param: ${number} is not support, Pleasr use number type param instead. ` }
     return {}
 }
+
 class CommunityController {
-    async index(){
-        const data = await Database.table('groups')
-        return { status : 200 , error : undefined, data : group}
+    async index({ request }) {
+        const { references } = request.qs
+        const communityUtil = new CommunityUtil(community)
+        const community = await communityUtil.getAll(references)
+
+        return { status: 200, error: undefined, data: community}
     }
-    async show({request}){
+    async show({ request }) {
         const { id } = request.params
-        const validatedValue = numberTypeParamValidator(id)
-        if(validatedValue.error) return {status: 500, error : validatedValue.error, data : undefined}
-        const community= await Database
-        .select('*')
-        .from('communitys')
-        .where("community_id",id)
-        .first()
-        return{ status: 200, error : undefined, data : community ||{} }
-    }
-    async store ({request}){
-        const {post,comment_post} = request.body
-        const rules ={
-                post:'required',
-                comment_post:'required',
-                
-         }
-        const validattion = await Validator.validateAll(request.body,rules)
-        if(validattion.fails())
-        return { status: 422 ,error:validattion.messages(),data:undefined}
+        const { references } = request.qs
+        const communityUtil = new CommunityUtil(community)
+        const community = communityUtil.getById(id, references)
+        return { status: 200, error: undefined, data: community || {} }
 
-        const hashedPassword = await Hash.make(password)
-        const community = await Database
-        .table('communitys')
-        .insert({post,comment_post})
-        return {status : 200,error : undefined , data : {community} }
     }
-    async update({request}){
-        const {body,params}=request
-        const {id}=params
-        const {post,comment_post} = body 
+    async store({ request }) {
+        const { post,comment_post } = request.body
+        const { references } = request.qs
+        const communityUtil = new CommunityUtil(community)
+        const community = await communityUtil.create({ post,comment_post }, references)
+
+        return { status: 200, error: undefined, data: community }
+
+    }
+    async update({ request }) {
+
+        const { body, params } = request
+        const { id } = params
+        const { post,comment_post } = body
         const communityId = await Database
-        .table('communitys')
-        .where({community_id:id})
-        .update({post,comment_post})
+            .table('communitys')
+            .where({ community_id: id })
+            .update({ post,comment_post })
 
-        const community = await Database 
-        .table('communitys')
-        .where({community_id:studentId})
-        .first()
-        return{status : 200,error : undefined , data : { community } }
+        const community = await Database
+            .table('communitys')
+            .where({ communitys_id: communityId })
+            .first()
+
+        return { status: 200, error: undefined, data: community }
+    }
+    async destroy({ request }) {
+        const { id } = request.params
+
+        await Database
+            .table('communitys')
+            .where({ community_id: id })
+            .delete()
+
+        return { status: 200, error: undefined, data: { maessage: 'success' } }
     }
 }
 
