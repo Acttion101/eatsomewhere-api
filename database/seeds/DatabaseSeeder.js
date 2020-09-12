@@ -19,6 +19,9 @@ class DatabaseSeeder {
     .model('App/Models/Admin')
     .createMany(10)
 
+    const user= await Factory
+    .model('App/Models/User')
+    .createMany(10)
   }
 }
 
