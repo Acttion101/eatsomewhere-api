@@ -17,16 +17,7 @@ class Admin extends Model {
     static get primaryKey() {
         return 'admin_id'
     }
-    static get createdAtColumn() {
-        return null;
-    }
-    static get updatedAtColumn() {
-        return null;
-    }
 
-    update_news() {
-        return this.hasMany('App/Models/AdminUpdateNew')
-    }
     store() {
         return this.hasMany('App/Models/Store')
     }
