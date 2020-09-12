@@ -23,8 +23,8 @@ class AdminController {
         const { id } = request.params
         const { references } = request.qs
         const adminUtil = new AdminUtil(Admin)
-        const admin = adminUtil.getById(id, references)
-        return { status: 200, error: undefined, data: admin || {} }
+        const admins = adminUtil.getById(id, references)
+        return { status: 200, error: undefined, data: admins || {} }
 
     }
     async store({ request }) {
@@ -34,9 +34,9 @@ class AdminController {
 
 
         const adminUtil = new AdminUtil(Admin)
-        const admin = await adminUtil.create({ first_name, last_name, age, admin_name, password, status }, references)
+        const admins = await adminUtil.create({ first_name, last_name, age, admin_name, password, status }, references)
 
-        return { status: 200, error: undefined, data: admin }
+        return { status: 200, error: undefined, data: admins }
 
     }
     async update({ request }) {
@@ -52,12 +52,12 @@ class AdminController {
             .where({ admin_id: id })
             .update({ first_name, last_name, age, admin_name, password: hashedPassword, status })
 
-        const admin = await Database
+        const admins = await Database
             .table('admins')
             .where({ admin_id: adminId })
             .first()
 
-        return { status: 200, error: undefined, data: admin }
+        return { status: 200, error: undefined, data: admins }
     }
     async destroy({ request }) {
         const { id } = request.params
