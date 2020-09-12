@@ -15,16 +15,16 @@ class StoreController {
     async index({ request }) {
         const { references } = request.qs
         const storeUtil = new StoreUtil(Store)
-        const store = await storeUtil.getAll(references)
+        const stores = await storeUtil.getAll(references)
 
-        return { status: 200, error: undefined, data: store }
+        return { status: 200, error: undefined, data: stores }
     }
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
         const storeUtil = new StoreUtil(Store)
-        const store = storeUtil.getById(id, references)
-        return { status: 200, error: undefined, data: store || {} }
+        const stores = storeUtil.getById(id, references)
+        return { status: 200, error: undefined, data: stores || {} }
 
     }
     async store({ request }) {
@@ -34,9 +34,9 @@ class StoreController {
 
 
         const storeUtil = new StoreUtil(Store)
-        const store = await storeUtil.create({ store_name, detail, comment_review, user_id, admin_id }, references)
+        const stores = await storeUtil.create({ store_name, detail, comment_review, user_id, admin_id }, references)
 
-        return { status: 200, error: undefined, data: store }
+        return { status: 200, error: undefined, data: stores }
 
     }
     async update({ request }) {
