@@ -1,7 +1,7 @@
 'use strict'
 const AdminUpdateValidator = require("../../../service/AdminUpdateValidator")
 const Database = use('Database')
-const Admin = use("App/Models/Admin")
+const AdminUpdate = use("App/Models/AdminUpdateNew")
 const AdminUpdateUtil = require("../../../util/AdminUpdateUtil")
 
 function numberTypeParamValidator(number) {
@@ -46,12 +46,12 @@ class AdminUpdateNewController {
 
 
         const adminUpdateId = await Database
-            .table('update_news')
+            .table('admin_update_news')
             .where({ update_news_id: id })
             .update({ news, detail })
 
         const adminUpdate = await Database
-            .table('update_news')
+            .table('admin_update_news')
             .where({ update_news_id: adminUpdateId })
             .first()
 
@@ -61,7 +61,7 @@ class AdminUpdateNewController {
         const { id } = request.params
 
         await Database
-            .table('update_news')
+            .table('admin_update_news')
             .where({ update_news_id: id })
             .delete()
 
