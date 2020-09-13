@@ -6,24 +6,40 @@ class AdminUtil {
 
     getAll(references) {
         const admins = this._Admin.query()
-        if (references) {
-            const extractedReferences = references.split(",");
-            admins.with(extractedReferences)
-        }
-        return admins
+
+        return this._withReference(admins, references)
             .fetch()
     }
 
     getById(adminId, references) {
-        if (references) {
-            const extractedReferences = references.split(",");
-            admins.with(extractedReferences)
-        }
-        return admins
+        const admin = this._Admin
+            .query()
+            .where('user_id', adminId)
+
+        return this._withReference(admin, references)
             .fetch()
             .then(response => response.first())
     }
 
+    async create(userInstance, references) {
+        const { admin_id } = await this._Admin.create(userInstance)
+        const admin = this._Admin
+            .query()
+            .where('admin_id', admin_id)
+
+        return this._withReference(admin, references)
+            .fetch()
+            .then(response => response.first())
+    }
+
+    _withReference(instance, references) {
+        if (references) {
+            const extractedReferences = references.split(",")
+            instance.with(extractedReferences)
+        }
+
+        return instance
+    }
 
 }
 module.exports = AdminUtil
