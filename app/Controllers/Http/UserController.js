@@ -2,7 +2,7 @@
 const UserValidator = require("../../../service/UserValidator")
 const Database = use('Database')
 const User = use("App/Models/User")
-const UserUtil = require("../../../util/UserUtil")
+const UserUtill = require("../../../util/UserUtill")
 
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
@@ -13,24 +13,24 @@ function numberTypeParamValidator(number) {
 class UserController {
     async index({ request }) {
         const { references } = request.qs
-        const userUtil = new UserUtil(User)
-        const user = await userUtil.getAll(references)
+        const userUtill = new UserUtill(User)
+        const user = await userUtill.getAll(references)
 
         return { status: 200, error: undefined, data: user }
     }
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
-        const userUtil = new UserUtil(User)
-        const user = userUtil.getById(id, references)
+        constuserUtill = new UserUtill(User)
+        const user = userUtill.getById(id, references)
         return { status: 200, error: undefined, data: user || {} }
 
     }
     async store({ request }) {
         const { first_name, last_name, age, user_name, password, status } = request.body
         const { references } = request.qs
-        const userUtil = new UserUtil(User)
-        const user = await userUtil.create({ first_name, last_name, age, user_name, password, status}, references)
+        const userUtill = new UserUtill(User)
+        const user = await userUtill.create({ first_name, last_name, age, user_name, password, status}, references)
 
         return { status: 200, error: undefined, data: user }
 
