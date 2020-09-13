@@ -13,7 +13,7 @@ function numberTypeParamValidator(number) {
 class CommunityController {
     async index({ request }) {
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(community)
+        const communityUtil = new CommunityUtil(Community)
         const community = await communityUtil.getAll(references)
 
         return { status: 200, error: undefined, data: community}
@@ -21,7 +21,7 @@ class CommunityController {
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(community)
+        const communityUtil = new CommunityUtil(Community)
         const community = communityUtil.getById(id, references)
         return { status: 200, error: undefined, data: community || {} }
 
@@ -29,7 +29,7 @@ class CommunityController {
     async store({ request }) {
         const { post,comment_post } = request.body
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(community)
+        const communityUtil = new CommunityUtil(Community)
         const community = await communityUtil.create({ post,comment_post }, references)
 
         return { status: 200, error: undefined, data: community }
@@ -41,12 +41,12 @@ class CommunityController {
         const { id } = params
         const { post,comment_post } = body
         const communityId = await Database
-            .table('communitys')
+            .table('communities')
             .where({ community_id: id })
             .update({ post,comment_post })
 
         const community = await Database
-            .table('communitys')
+            .table('communities')
             .where({ communitys_id: communityId })
             .first()
 
@@ -56,7 +56,7 @@ class CommunityController {
         const { id } = request.params
 
         await Database
-            .table('communitys')
+            .table('communities')
             .where({ community_id: id })
             .delete()
 

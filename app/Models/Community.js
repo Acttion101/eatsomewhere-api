@@ -13,6 +13,7 @@ class Community extends Model {
     static get updatedAtColumn() {
         return null;
     }
+    
 }
 
 module.exports = Community
