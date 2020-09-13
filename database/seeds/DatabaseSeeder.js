@@ -1,15 +1,5 @@
 'use strict'
 
-/*
-|--------------------------------------------------------------------------
-| DatabaseSeeder
-|--------------------------------------------------------------------------
-|
-| Make use of the Factory instance to seed database with dummy data or
-| make use of Lucid models directly.
-|
-*/
-
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const Factory = use('Factory')
 
@@ -19,10 +9,29 @@ class DatabaseSeeder {
     .model('App/Models/Admin')
     .createMany(10)
 
-    const user= await Factory
-    .model('App/Models/User')
+     const user= await Factory
+     .model('App/Models/User')
+     .createMany(10)
+
+  //  const community = await Factory
+  //   .model('App/Models/Community')
+  //    .createMany(10)
+
+    const adminupdatenew = await Factory
+    .model('App/Models/AdminUpdateNew')
     .createMany(10)
+
+    // const news = await Factory
+    // .model('App/Models/News')
+    // .createMany(10)
+    
+    //  const store= await Factory
+    //  .model('App/Models/Store')
+    //  
   }
+  
+  
+
 }
 
 module.exports = DatabaseSeeder
