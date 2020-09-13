@@ -4,29 +4,42 @@ class AdminUpdateUtil {
         this._AdminUpdate = AdminUpdateModel
     }
 
+
     getAll(references) {
         const adminUpdate = this._AdminUpdate.query()
-        if (references) {
-            const extractedReferences = references.split(",");
-            extractedReferences.forEach(reference => {
-                adminUpdate.with(reference)
 
-            });
-        }
-        return adminUpdate.fetch()
+        return this._withReference(adminUpdate, references)
+            .fetch()
     }
 
     getById(adminUpdateId, references) {
         const adminUpdate = this._AdminUpdate
             .query()
             .where('update_news_id', adminUpdateId)
-        if (references) {
-            const extractedReferences = references.split(",");
-            adminUpdate.with(extractedReferences)
-        }
-        return adminUpdate
+
+        return this._withReference(adminUpdate, references)
             .fetch()
             .then(response => response.first())
+    }
+
+    async create(userInstance, references) {
+        const { update_news_id } = await this._AdminUpdate.create(userInstance)
+        const adminUpdate = this._AdminUpdate
+            .query()
+            .where('update_news_id', update_news_id)
+
+        return this._withReference(adminUpdate, references)
+            .fetch()
+            .then(response => response.first())
+    }
+
+    _withReference(instance, references) {
+        if (references) {
+            const extractedReferences = references.split(",")
+            instance.with(extractedReferences)
+        }
+
+        return instance
     }
 
 
