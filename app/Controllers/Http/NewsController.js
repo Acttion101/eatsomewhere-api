@@ -22,6 +22,10 @@ class NewsController {
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
+        const validatedValue = numberTypeParamValidator(id)
+        if (validatedValue.error)
+            return { status: 500, error: validatedValue.error, data: undefined }
+
         const newUtil = new NewUtil(News)
         const news = newUtil.getById(id, references)
         return { status: 200, error: undefined, data: news || {} }
@@ -29,14 +33,21 @@ class NewsController {
     }
     async store({ request }) {
         const { update_news_id } = request.body
-        const { references } = request.qs
+            //const { references } = request.qs
+        const validatedData = await NewValidator(request.body)
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
+        const news = new News;
+        news.update_news_id = update_news_id;
 
-
-
-        const newUtil = new NewUtil(News)
-        const news = await newUtil.create({ update_news_id }, references)
+        await news.save()
 
         return { status: 200, error: undefined, data: news }
+
+        //const newUtil = new NewUtil(News)
+        //const news = await newUtil.create({ update_news_id }, references)
+
+        //return { status: 200, error: undefined, data: news }
 
     }
     async update({ request }) {
