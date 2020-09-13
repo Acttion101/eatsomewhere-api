@@ -2,7 +2,7 @@
 const Database = use('Database')
 const CommunityValidator = require("../../../service/CommunityValidator")
 const Community =use("App/Models/Community")
-const CommunityUtil= require("../../../util/CommunityUtil")
+const CommunityUtill = require("../../../util/Community")
 
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
@@ -13,24 +13,24 @@ function numberTypeParamValidator(number) {
 class CommunityController {
     async index({ request }) {
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(Community)
-        const community = await communityUtil.getAll(references)
+        const communityUtill = new CommunityUtill(Community)
+        const community = await communityUtill.getAll(references)
 
         return { status: 200, error: undefined, data: community}
     }
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(Community)
-        const community = communityUtil.getById(id, references)
+        const communityUtill = new CommunityUtill(Community)
+        const community = communityUtill.getById(id, references)
         return { status: 200, error: undefined, data: community || {} }
 
     }
     async store({ request }) {
         const { post,comment_post } = request.body
         const { references } = request.qs
-        const communityUtil = new CommunityUtil(Community)
-        const community = await communityUtil.create({ post,comment_post }, references)
+        const communityUtill = new CommunityUtill(Community)
+        const community = await communityUtill.create({ post,comment_post }, references)
 
         return { status: 200, error: undefined, data: community }
 

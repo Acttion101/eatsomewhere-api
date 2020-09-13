@@ -1,4 +1,4 @@
-class CommunityUtil{
+class CommunityUtill{
     constructor(CommunityModel) {
         this._Community = CommunityModel
     }
@@ -6,7 +6,7 @@ class CommunityUtil{
     getAll(references) {
         const community = this._Community.query()
 
-        return this._withReference(adminUpdate, references)
+        return this._withReference(community ,references)
             .fetch()
     }
 
@@ -40,3 +40,4 @@ class CommunityUtil{
         return instance
     }
 }
+module.exports = CommunityUtill
