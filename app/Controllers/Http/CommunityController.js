@@ -26,6 +26,15 @@ class CommunityController {
         return { status: 200, error: undefined, data: community || {} }
 
     }
+    async showUser({request}){
+        const{ id } =request.params
+        const user = await Database
+        .table('users')
+        .where("user_id",id)
+        .innerJoin('users','community.user_id','users.user_id')
+        .first()
+        return{ status: 200, error : undefined, data : user ||{} }
+    }
     async store({ request }) {
         const { post,comment_post } = request.body
         const { references } = request.qs
