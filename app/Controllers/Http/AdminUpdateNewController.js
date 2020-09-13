@@ -22,8 +22,8 @@ class AdminUpdateNewController {
         const { id } = request.params
         const { references } = request.qs
         const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
-        const adminUpdate = adminUpdateUtil.getById(id, references)
-        return { status: 200, error: undefined, data: adminUpdate || {} }
+        const adminUpdates = adminUpdateUtil.getById(id, references)
+        return { status: 200, error: undefined, data: adminUpdates || {} }
 
     }
     async store({ request }) {
@@ -33,9 +33,9 @@ class AdminUpdateNewController {
 
 
         const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
-        const adminUpdate = await adminUpdateUtil.create({ news, detail }, references)
+        const adminUpdates = await adminUpdateUtil.create({ news, detail }, references)
 
-        return { status: 200, error: undefined, data: adminUpdate }
+        return { status: 200, error: undefined, data: adminUpdates }
 
     }
     async update({ request }) {
@@ -50,12 +50,12 @@ class AdminUpdateNewController {
             .where({ update_news_id: id })
             .update({ news, detail })
 
-        const adminUpdate = await Database
+        const adminUpdates = await Database
             .table('admin_update_news')
             .where({ update_news_id: adminUpdateId })
             .first()
 
-        return { status: 200, error: undefined, data: adminUpdate }
+        return { status: 200, error: undefined, data: adminUpdates }
     }
     async destroy({ request }) {
         const { id } = request.params
