@@ -1,5 +1,5 @@
 'use strict'
-const New = use("App/Models/News")
+const News = use("App/Models/News")
 
 const Database = use('Database')
 const NewValidator = require("../../../service/NewValidator")
@@ -14,7 +14,7 @@ function numberTypeParamValidator(number) {
 class NewsController {
     async index({ request }) {
         const { references } = request.qs
-        const newUtil = new NewUtil(New)
+        const newUtil = new NewUtil(News)
         const news = await newUtil.getAll(references)
 
         return { status: 200, error: undefined, data: news }
@@ -22,7 +22,7 @@ class NewsController {
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
-        const newUtil = new NewUtil(New)
+        const newUtil = new NewUtil(News)
         const news = newUtil.getById(id, references)
         return { status: 200, error: undefined, data: news || {} }
 
@@ -33,7 +33,7 @@ class NewsController {
 
 
 
-        const newUtil = new NewUtil(New)
+        const newUtil = new NewUtil(News)
         const news = await newUtil.create({ update_news_id }, references)
 
         return { status: 200, error: undefined, data: news }
@@ -46,14 +46,14 @@ class NewsController {
         const { update_news_id } = body
 
 
-        const updateNewsId = await Database
+        const NewsId = await Database
             .table('news')
             .where({ news_id: id })
             .update({ update_news_id })
 
         const news = await Database
             .table('news')
-            .where({ news_id: updateNewsId })
+            .where({ news_id: NewsId })
             .first()
 
         return { status: 200, error: undefined, data: news }
