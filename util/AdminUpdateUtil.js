@@ -6,39 +6,29 @@ class AdminUpdateUtil {
 
     getAll(references) {
         const adminUpdate = this._AdminUpdate.query()
-
-        return this._withReference(adminUpdate, references)
-            .fetch()
-    }
-
-    getById(adminId, references) {
-        const adminUpdate = this._AdminUpdate
-            .query()
-            .where('update_news_id', adminId)
-
-        return this._withReference(adminUpdate, references)
-            .fetch()
-            .then(response => response.first())
-    }
-
-    async create(adminInstance, references) {
-        const { update_news_id } = await this._AdminUpdate.create(adminInstance)
-        const adminUpdate = this._AdminUpdate
-            .query()
-            .where('update_news_id', update_news_id)
-
-        return this._withReference(adminUpdate, references)
-            .fetch()
-            .then(response => response.first())
-    }
-
-    _withReference(instance, references) {
         if (references) {
-            const extractedReferences = references.split(",")
-            instance.with(extractedReferences)
-        }
+            const extractedReferences = references.split(",");
+            extractedReferences.forEach(reference => {
+                adminUpdate.with(reference)
 
-        return instance
+            });
+        }
+        return adminUpdate.fetch()
     }
+
+    getById(adminUpdateId, references) {
+        const adminUpdate = this._AdminUpdate
+            .query()
+            .where('update_news_id', adminUpdateId)
+        if (references) {
+            const extractedReferences = references.split(",");
+            adminUpdate.with(extractedReferences)
+        }
+        return adminUpdate
+            .fetch()
+            .then(response => response.first())
+    }
+
+
 }
 module.exports = AdminUpdateUtil
