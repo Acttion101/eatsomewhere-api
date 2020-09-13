@@ -1,14 +1,14 @@
 const Validator = use('Validator')
 module.exports = async function NewValidator(data) {
     if (typeof data !== 'object') throw new Error()
-    const { admin_update_news } = data
+    const { update_news_id } = data
     const rules = {
-        admin_update_news: 'required',
+        update_news_id: 'required',
 
     }
 
     const validation = await Validator.validateAll({
-        admin_update_news,
+        update_news_id,
     }, rules)
 
     return {
