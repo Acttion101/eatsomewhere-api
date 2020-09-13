@@ -1,4 +1,4 @@
-class UserUtil {
+class UserUtill {
 
     constructor(UserModel) {
         this._User = UserModel
@@ -41,4 +41,4 @@ class UserUtil {
         return instance
     }
 }
-module.exports = AdminUtil
+module.exports = UserUtill
