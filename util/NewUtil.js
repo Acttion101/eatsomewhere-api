@@ -6,28 +6,41 @@ class NewUtil {
 
     getAll(references) {
         const news = this._News.query()
-        if (references) {
-            const extractedReferences = references.split(",");
-            extractedReferences.forEach(reference => {
-                news.with(reference)
 
-            });
-        }
-        return news.fetch()
+        return this._withReference(news, references)
+            .fetch()
     }
 
     getById(newsId, references) {
         const news = this._News
             .query()
             .where('news_id', newsId)
-        if (references) {
-            const extractedReferences = references.split(",");
-            news.with(extractedReferences)
-        }
-        return news
+
+        return this._withReference(news, references)
             .fetch()
             .then(response => response.first())
     }
+
+    async create(userInstance, references) {
+        const { news_id } = await this._News.create(userInstance)
+        const news = this._News
+            .query()
+            .where('news_id', news_id)
+
+        return this._withReference(news, references)
+            .fetch()
+            .then(response => response.first())
+    }
+
+    _withReference(instance, references) {
+        if (references) {
+            const extractedReferences = references.split(",")
+            instance.with(extractedReferences)
+        }
+
+        return instance
+    }
+
 
 }
 module.exports = NewUtil
