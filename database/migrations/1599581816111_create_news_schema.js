@@ -7,8 +7,9 @@ class CreateNewsSchema extends Schema {
     up() {
         this.create('news', (table) => {
             table.increments("news_id", 5)
-            table.integer("update_news_id", 5).notNullable().unsigned()
-            table.foreign('update_news_id')
+            table.integer('update_news_id', 5).unsigned()
+            table
+                .foreign('update_news_id')
                 .references('admin_update_news.update_news_id')
                 .onDelete('CASCADE')
                 .onUpdate('CASCADE')
