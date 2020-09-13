@@ -31,29 +31,28 @@ Factory.blueprint('App/Models/AdminUpdateNew', (faker) => {
         detail: faker.sentence()
     }
 })
+  Factory.blueprint('App/Models/Community', (faker) => {
+     return {
+          post: faker.sentence({ words: 5 }),
+          comment_post: faker.sentence()
+       
+      }
+  })
 
-//  Factory.blueprint('App/Models/Community', (faker) => {
+   Factory.blueprint('App/Models/Store', (faker) => {
+        return {         
+            store_name: faker.name(),
+            detail: faker.sentence(),
+            comment_review: faker.sentence({ words: 5 })
+       }
+       })
+
+//   Factory.blueprint('App/Models/News', (faker) => {
 //      return {
-//          post: faker.sentence({ words: 5 }),
-//          comment_post: faker.sentence()
-         
-//      }
-//  })
-
-//   Factory.blueprint('App/Models/Store', (faker) => {
-//      return {         
-//          store_name: faker.name(),
-//          detail: faker.sentence(),
-//         comment_review: faker.sentence(),
+//           admin_update_news: faker.sentence({ words: 4 })
+        
 //       }
 //   })
-
-// Factory.blueprint('App/Models/News', (faker) => {
-//     return {
-//         admin_update_news: faker.sentence({ words: 4 }),
-        
-//     }
-// })
 
 
 
