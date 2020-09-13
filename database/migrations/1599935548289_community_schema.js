@@ -9,8 +9,8 @@ class CommunitySchema extends Schema {
       table.increments('community_id', 5)
       table.string('post').notNullable()
       table.string('comment_post').notNullable()
-      table.integer('user_id').notNullable().unsigned()
-      table.integer('admin_id').notNullable().unsigned()
+      table.integer('user_id').unsigned()
+      table.integer('admin_id').unsigned()
       table
           .foreign('user_id')
           .references('users.user_id')
