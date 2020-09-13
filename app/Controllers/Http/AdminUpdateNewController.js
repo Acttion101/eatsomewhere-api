@@ -21,6 +21,9 @@ class AdminUpdateNewController {
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
+        const validatedValue = numberTypeParamValidator(id)
+        if (validatedValue.error)
+            return { status: 500, error: validatedValue.error, data: undefined }
         const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
         const adminUpdates = adminUpdateUtil.getById(id, references)
         return { status: 200, error: undefined, data: adminUpdates || {} }
@@ -29,8 +32,10 @@ class AdminUpdateNewController {
     async store({ request }) {
         const { news, detail } = request.body
         const { references } = request.qs
-
-
+        const validatedData = await AdminUpdateValidator(request.body)
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
+        const { references } = request.qs
 
         const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
         const adminUpdates = await adminUpdateUtil.create({ news, detail }, references)
