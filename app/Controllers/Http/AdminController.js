@@ -22,6 +22,10 @@ class AdminController {
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
+        const validatedValue = numberTypeParamValidator(id)
+        if (validatedValue.error)
+            return { status: 500, error: validatedValue.error, data: undefined }
+
         const adminUtil = new AdminUtil(Admin)
         const admins = adminUtil.getById(id, references)
         return { status: 200, error: undefined, data: admins || {} }
@@ -30,7 +34,9 @@ class AdminController {
     async store({ request }) {
         const { first_name, last_name, age, admin_name, password, status } = request.body
         const { references } = request.qs
-
+        const validatedData = await AdminValidator(request.body)
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
 
 
         const adminUtil = new AdminUtil(Admin)
