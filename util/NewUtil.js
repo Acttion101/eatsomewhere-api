@@ -1,44 +1,33 @@
 class NewUtil {
 
-    constructor(NewModel) {
-        this._New = NewModel
+    constructor(NewsModel) {
+        this._News = NewsModel
     }
 
     getAll(references) {
-        const news = this._New.query()
-
-        return this._withReference(news, references)
-            .fetch()
-    }
-
-    getById(newId, references) {
-        const news = this._New
-            .query()
-            .where('news_id', newId)
-
-        return this._withReference(news, references)
-            .fetch()
-            .then(response => response.first())
-    }
-
-    async create(newInstance, references) {
-        const { news_id } = await this._New.create(newInstance)
-        const news = this._New
-            .query()
-            .where('news_id', news_id)
-
-        return this._withReference(news, references)
-            .fetch()
-            .then(response => response.first())
-    }
-
-    _withReference(instance, references) {
+        const news = this._News.query()
         if (references) {
-            const extractedReferences = references.split(",")
-            instance.with(extractedReferences)
-        }
+            const extractedReferences = references.split(",");
+            extractedReferences.forEach(reference => {
+                news.with(reference)
 
-        return instance
+            });
+        }
+        return news.fetch()
     }
+
+    getById(newsId, references) {
+        const news = this._News
+            .query()
+            .where('news_id', newsId)
+        if (references) {
+            const extractedReferences = references.split(",");
+            news.with(extractedReferences)
+        }
+        return news
+            .fetch()
+            .then(response => response.first())
+    }
+
 }
 module.exports = NewUtil
