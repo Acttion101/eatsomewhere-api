@@ -35,7 +35,7 @@ class AdminUpdateNewController {
         const validatedData = await AdminUpdateValidator(request.body)
         if (validatedData.error)
             return { status: 422, error: validatedData.error, data: undefined }
-        const { references } = request.qs
+
 
         const adminUpdateUtil = new AdminUpdateUtil(AdminUpdate)
         const adminUpdates = await adminUpdateUtil.create({ news, detail }, references)
