@@ -11,6 +11,9 @@ const AdminModel = use('App/Models/Admin')
 const urlCommunity = "/api/v2/communitys"
 const CommunityModel = use('App/Models/Community')
 
+const urlNews = "/api/v2/news"
+const NewsModel = use('App/Models/News')
+
 trait("Test/ApiClient");
 
 test('should insert value to user table', async ({ client }) => {
@@ -26,18 +29,18 @@ test('should insert value to user table', async ({ client }) => {
   response.assertStatus(200)
 })
 
-// test('should insert value to admin table', async ({ client }) => {
-//     const admin = {
-//         first_name: "John",
-//         last_name: "Doe",
-//         age: '20',
-//         admin_name: "Johnlnwzazaa",
-//         password: "12345678",
-//         status: "admin"
-//     }
-//     const response = await client.post(urlAdmins).send(admin).end()
-//     response.assertStatus(200)
-//   })
+test('should insert value to admin table', async ({ client }) => {
+    const admin = {
+        first_name: "John",
+        last_name: "Doe",
+        age: '20',
+        admin_name: "Johnlnwzazaa",
+        password: "12345678",
+        status: "admin"
+    }
+    const response = await client.post(urlAdmins).send(admin).end()
+    response.assertStatus(200)
+  })
 test('should insert value to community table', async ({ client }) => {
     const user = {
           post: "John",
@@ -46,3 +49,10 @@ test('should insert value to community table', async ({ client }) => {
     const response = await client.post(urlUsers).send(user).end()
     response.assertStatus(200)
   })
+  test('should insert value to news table', async ({ client }) => {
+      const user = {
+            update_news_id:"1"
+      }
+      const response = await client.post(urlUsers).send(user).end()
+      response.assertStatus(200)
+    })
