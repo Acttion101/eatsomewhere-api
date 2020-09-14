@@ -1,4 +1,12 @@
 'use strict'
 
 const { test } = use('Test/Suite')('Admin Validator')
-const AdminValidator = require('../../service/AdminValidator')
+const AdminUtil = require("../../util/AdminUtil")
+const MockAdminModel = use("App/Models/Admin")
+    //const adminValidator = require('../../service/TeacherValidator')
+
+test("should get all admins", async({ assert }) => {
+    const adminUtil = new AdminUtil(MockAdminModel);
+    const admins = await adminUtil.getAll()
+    assert.isObject(admins)
+})
