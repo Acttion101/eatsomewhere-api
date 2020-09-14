@@ -1,11 +1,11 @@
 'use strict'
 
 const { test } = use('Test/Suite')('User Util')
-const UserUtil = require("../../util/UserUtil")
+const UserUtil = require("../../util/UserUtil.func")
 const MockUserModel = use("App/Models/User")
 
-test("should get all user", async ({ assert }) => {
-  const userUtil = new UserUtil(MockUserModel);
-  const users = await userUtil.getAll()
-  assert.isObject(users)
+test("should get all user", async({ assert }) => {
+    const userUtil = new UserUtil(MockUserModel);
+    const users = await userUtil.getAll()
+    assert.isObject(users)
 })
