@@ -2,7 +2,7 @@
 const UserValidator = require("../../../service/UserValidator")
 const Database = use('Database')
 const User = use("App/Models/User")
-const UserUtill = require("../../../util/UserUtill")
+const UserUtil = require("../../../util/UserUtil")
 
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
@@ -13,24 +13,32 @@ function numberTypeParamValidator(number) {
 class UserController {
     async index({ request }) {
         const { references } = request.qs
-        const userUtill = new UserUtill(User)
-        const user = await userUtill.getAll(references)
+        const userUtil = new UserUtil(User)
+        const user = await userUtil.getAll(references)
 
         return { status: 200, error: undefined, data: user }
     }
     async show({ request }) {
         const { id } = request.params
         const { references } = request.qs
-        constuserUtill = new UserUtill(User)
-        const user = userUtill.getById(id, references)
+        const validatedValue = numberTypeParamValidator(id)
+        if (validatedValue.error)
+            return { status: 500, error: validatedValue.error, data: undefined }
+
+        const userUtil = new UserUtil(User)
+        const user = userUtil.getById(id, references)
         return { status: 200, error: undefined, data: user || {} }
 
     }
     async store({ request }) {
         const { first_name, last_name, age, user_name, password, status } = request.body
         const { references } = request.qs
-        const userUtill = new UserUtill(User)
-        const user = await userUtill.create({ first_name, last_name, age, user_name, password, status}, references)
+        const validatedData = await UserValidator(request.body)
+        if (validatedData.error)
+            return { status: 422, error: validatedData.error, data: undefined }
+
+        const userUtil = new UserUtil(User)
+        const user = await userUtil.create({ first_name, last_name, age, user_name, password, status}, references)
 
         return { status: 200, error: undefined, data: user }
 
