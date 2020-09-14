@@ -1,8 +1,9 @@
 'use strict'
-const { test,trait } = use('Test/Suite')('Util Test')
+const { test, trait } = use('Test/Suite')('Util Test')
 
 const UserUtil = require("../../util/UserUtil.func")
 const MockUserModel = use("App/Models/User")
+const urluser = ('/api/v2/users')
 
 const AdminUtil = require("../../util/AdminUtil.func")
 const Admin = use("App/Models/Admin")
@@ -17,16 +18,30 @@ const MockCommunityModel = use("App/Models/Community")
 
 trait('Test/ApiClient')
 
-test("shculd get all user", async ({ assert }) => {
-  const communityUtil = new CommunityUtil(MockCommunityModel);
-  const communitys = await communityUtil.getAll()
-  assert.isObject(communitys)
+test("shculd get all user", async({ assert }) => {
+    const communityUtil = new CommunityUtil(MockCommunityModel);
+    const communitys = await communityUtil.getAll()
+    assert.isObject(communitys)
 })
 
 test("should get all user", async({ assert }) => {
     const userUtil = new UserUtil(MockUserModel);
     const users = await userUtil.getAll()
     assert.isObject(users)
+})
+test('get list of user', async({ client }) => {
+    await MockUserModel.create({
+        first_name: 'ddeee',
+        last_name: 'ddddddddddddddddddd',
+        age: '22',
+        username: 'sasasa',
+        password: '12345679',
+        status: 'admin'
+    })
+
+    const response = await client.get(`${urluser}`).end()
+    response.assertStatus(200)
+
 })
 
 test('get list of admin', async({ client }) => {
