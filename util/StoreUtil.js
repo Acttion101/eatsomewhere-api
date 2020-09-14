@@ -6,26 +6,46 @@ class StoreUtil {
 
 
     getAll(references) {
-        const store = this._Store.query()
+        const stores = this._Store.query()
         if (references) {
             const extractedReferences = references.split(",");
             extractedReferences.forEach(reference => {
-                store.with(reference)
+                stores.with(reference)
             });
         }
-        return store.fetch()
+        return stores.fetch()
     }
     getById(storeId, references) {
-        const store = this._Store
+        const stores = this._Store
             .query()
             .where('store_id', storeId)
         if (references) {
             const extractedReferences = references.split(",");
-            store.with(extractedReferences)
+            stores.with(extractedReferences)
         }
-        return store
+        return stores
             .fetch()
             .then(response => response.first())
     }
+    async create(userInstance, references) {
+        const { store_id } = await this._Store.create(userInstance)
+        const stores = this._Store
+            .query()
+            .where('store_id', store_id)
+
+        return this._withReference(stores, references)
+            .fetch()
+            .then(response => response.first())
+    }
+
+    _withReference(instance, references) {
+        if (references) {
+            const extractedReferences = references.split(",")
+            instance.with(extractedReferences)
+        }
+
+        return instance
+    }
+
 }
 module.exports = StoreUtil
