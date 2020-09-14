@@ -6,7 +6,7 @@ module.exports = async function adminValidator(data) {
         first_name: 'required',
         last_name: 'required',
         age: 'required',
-        admin_name: 'required',
+        admin_name: 'required|admin_name|unique:admins,admin_name',
         password: 'required|min:8',
         status: 'required',
     }
