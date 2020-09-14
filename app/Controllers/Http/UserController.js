@@ -2,7 +2,7 @@
 const UserValidator = require("../../../service/UserValidator")
 const Database = use('Database')
 const User = use("App/Models/User")
-const UserUtil = require("../../../util/UserUtil")
+const UserUtil = require("../../../util/UserUtil.func")
 
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
