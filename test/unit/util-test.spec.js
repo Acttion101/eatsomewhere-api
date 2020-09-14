@@ -8,7 +8,7 @@ const AdminUtil = require("../../util/AdminUtil.func")
 const Admin = use("App/Models/Admin")
 const urladmin = ('/api/v2/admins')
 
-const StoreUtil = require("../../util/StoreUtil")
+const StoreUtil = require("../../util/StoreUtil.func")
 const urlstore = ('/api/v2/stores')
 const Store = use('App/Models/Store')
 
