@@ -3,7 +3,7 @@ const News = use("App/Models/News")
 
 const Database = use('Database')
 const NewValidator = require("../../../service/NewValidator")
-const NewUtil = require("../../../util/NewUtil")
+const NewUtil = require("../../../util/NewUtil.func")
 
 function numberTypeParamValidator(number) {
     if (Number.isNaN(parseInt(number)))
