@@ -28,7 +28,7 @@ test('should return error with incorrect data that required from user validator'
     assert.isOk(user.error,'user error')
   })
 
-test('should receive object as first parameter', async ({ assert }) => {
+test('should receive object as first parameter from user validator', async ({ assert }) => {
     const validatedData = await UserValidator({
       first_name: "John",
       last_name: "Doe",
@@ -39,7 +39,7 @@ test('should receive object as first parameter', async ({ assert }) => {
     })
     assert.isOk(validatedData)
 })  
-  test('should return undefined when pass correct data', async ({ assert }) => {
+  test('should return undefined when pass correct data from user validator', async ({ assert }) => {
     const validatedData = await UserValidator({
         first_name: "John",
         last_name: "Doe",
@@ -51,7 +51,7 @@ test('should receive object as first parameter', async ({ assert }) => {
   
     assert.isArray(validatedData.error, undefined)
   })
-  test('should receive object as first parameter', async({ assert }) => {
+  test('should receive object as first parameter from adminUpdate validator', async({ assert }) => {
     const validatedData = await AdminUpdateValidator({
         news: 'ddeee',
         detail: 'ddddddddddddddddddd',
@@ -62,7 +62,7 @@ test('should receive object as first parameter', async ({ assert }) => {
 
 
 
-test('should return undefined when pass correct data', async({ assert }) => {
+test('should return undefined when pass correct data from adminUpdate validator', async({ assert }) => {
     const validatedData = await AdminUpdateValidator({
         news: 'ddeee',
         detail: 'ddddddddddddddddddd',
@@ -70,7 +70,7 @@ test('should return undefined when pass correct data', async({ assert }) => {
     assert.equal(validatedData.error, undefined)
 })
 
-test('should receive object as first parameter', async({ assert }) => {
+test('should receive object as first parameter from store validator', async({ assert }) => {
     const validatedData = await StoreValidator({
         store_name: 'ddeee',
         detail: 'ddddddddddddddddddd',
@@ -81,7 +81,7 @@ test('should receive object as first parameter', async({ assert }) => {
     assert.isOk(validatedData)
 })
 
-test('should return undefined when pass correct data', async({ assert }) => {
+test('should return undefined when pass correct data from store validator', async({ assert }) => {
     const validatedData = await StoreValidator({
         store_name: 'ddeee',
         detail: 'ddddddddddddddddddd',
@@ -92,7 +92,7 @@ test('should return undefined when pass correct data', async({ assert }) => {
     assert.equal(validatedData.error, undefined)
 })
 
-test('should receive object as first parameter', async ({ assert }) => {
+test('should receive object as first parameter from community validator', async ({ assert }) => {
     const validatedData = await CommunityValidator({
       post: "this store is verygood",
       comment_post:"good review"
@@ -100,7 +100,7 @@ test('should receive object as first parameter', async ({ assert }) => {
     assert.isOk(validatedData)
 })
 
-test('should receive object as first parameter', async({ assert }) => {
+test('should receive object as first parameter from admin validator', async({ assert }) => {
     const validatedData = await AdminValidator({
         first_name: "Saro",
         last_name: "Kahapana",
@@ -113,7 +113,7 @@ test('should receive object as first parameter', async({ assert }) => {
 
 })
 
-test('should return only  one error if single incorrect data is passed', async({ assert }) => {
+test('should return only  one error if single incorrect data is passed from admin validator', async({ assert }) => {
     const validatedData = await AdminValidator({
         first_name: "Saro",
         last_name: "Kahapana",
@@ -125,7 +125,7 @@ test('should return only  one error if single incorrect data is passed', async({
     assert.equal(validatedData.error.length, 2)
 })
 
-test('should return undefined when pass correct data', async({ assert }) => {
+test('should return undefined when pass correct data from admin validator', async({ assert }) => {
     const validatedData = await AdminValidator({
         first_name: "Saro",
         last_name: "Kahapana",
