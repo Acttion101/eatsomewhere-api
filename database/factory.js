@@ -35,7 +35,6 @@ Factory.blueprint('App/Models/Community', (faker) => {
     return {
         post: faker.sentence({ words: 5 }),
         comment_post: faker.sentence(),
-        admin_id: faker.integer({ min: 1, max: 10 }),
         user_id: faker.integer({ min: 1, max: 10 }),
     }
 })
