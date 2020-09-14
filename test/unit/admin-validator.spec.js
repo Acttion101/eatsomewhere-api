@@ -14,30 +14,19 @@ test('should receive object as first parameter', async({ assert }) => {
     })
     assert.isOk(validatedData)
 
-    //const validatedData2 = await AdminValidator("Saro", "Kahapana", "20", "saroramita", "pass", "admin")
-    //assert.isNotOk(validatedData2)
 })
 
-//test('should return error when pass incorect data', async({ assert }) => {
-//const validatedData = await AdminValidator("Saro", "Kahapana", "20", "saroramita", "010219saro", "admin")
-//assert.isArray(validatedData.error)
-//})
-
 test('should return only  one error if single incorrect data is passed', async({ assert }) => {
-        const validatedData = await AdminValidator({
-            first_name: "Saro",
-            last_name: "Kahapana",
-            age: '20',
-            admin_name: 'saroramita',
-            passsword: '010219saro',
-            status: 'admin'
-        })
-        assert.equal(validatedData.error.length, 2)
+    const validatedData = await AdminValidator({
+        first_name: "Saro",
+        last_name: "Kahapana",
+        age: '20',
+        admin_name: 'saroramita',
+        passsword: '010219saro',
+        status: 'admin'
     })
-    //test('should return more than one error if multiple incorrect data is passed', async({ assert }) => {
-    //const validatedData = await AdminValidator("Saro", "Kahapana", "19", "sarozaa", "123456", "admin")
-    //assert.isAbove(validatedData.error.length, 10)
-    //})
+    assert.equal(validatedData.error.length, 2)
+})
 
 test('should return undefined when pass correct data', async({ assert }) => {
     const validatedData = await AdminValidator({
