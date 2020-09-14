@@ -8,6 +8,9 @@ const UserModel = use('App/Models/User')
 const urlAdmins = "/api/v2/admins"
 const AdminModel = use('App/Models/Admin')
 
+const urlCommunity = "/api/v2/communitys"
+const CommunityModel = use('App/Models/Community')
+
 trait("Test/ApiClient");
 
 test('should insert value to user table', async ({ client }) => {
@@ -35,3 +38,11 @@ test('should insert value to user table', async ({ client }) => {
 //     const response = await client.post(urlAdmins).send(admin).end()
 //     response.assertStatus(200)
 //   })
+test('should insert value to community table', async ({ client }) => {
+    const user = {
+          post: "John",
+          comment_post:"goodd"
+    }
+    const response = await client.post(urlUsers).send(user).end()
+    response.assertStatus(200)
+  })
