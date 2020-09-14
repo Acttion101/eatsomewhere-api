@@ -10,13 +10,9 @@ class CommunitySchema extends Schema {
       table.string('post').notNullable()
       table.string('comment_post').notNullable()
       table.integer('user_id').unsigned()
-      table.integer('admin_id').unsigned()
       table
           .foreign('user_id')
           .references('users.user_id')
-      table
-          .foreign('admin_id')
-          .references('admins.admin_id')
       table.timestamps()
     })
   }
