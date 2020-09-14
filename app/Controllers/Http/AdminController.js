@@ -2,7 +2,7 @@
 const AdminValidator = require("../../../service/AdminValidator")
 const Database = use('Database')
 const Admin = use("App/Models/Admin")
-const AdminUtil = require("../../../util/AdminUtil")
+const AdminUtil = require('../../../util/AdminUtil.func')
 const Hash = use('Hash')
 
 function numberTypeParamValidator(number) {
