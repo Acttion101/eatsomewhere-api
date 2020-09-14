@@ -41,4 +41,4 @@ class UserUtil {
         return instance
     }
 }
-module.exports = UserUtill
+module.exports = UserUtil
