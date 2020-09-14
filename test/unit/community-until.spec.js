@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = use('Test/Suite')('Community Util')
-const CommunityUtil = require("../../util/Community")
+const CommunityUtil = require("../../util/CommunityUtil.func")
 const MockCommunityModel = use("App/Models/Community")
 
 test("shculd get all user", async ({ assert }) => {
