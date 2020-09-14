@@ -1,12 +1,12 @@
 'use strict'
 const Database = use('Database')
 const CommunityValidator = require("../../../service/CommunityValidator")
-const Community =use("App/Models/Community")
+const Community = use("App/Models/Community")
 const CommunityUtil = require("../../../util/CommunityUtil.func")
 
 function numberTypeParamValidator(number) {
-    if(Number.isNaN(parseInt(number))) 
-        return { error:  `param: ${number} is not support, Pleasr use number type param instead. ` }
+    if (Number.isNaN(parseInt(number)))
+        return { error: `param: ${number} is not support, Pleasr use number type param instead. ` }
     return {}
 }
 
@@ -16,7 +16,7 @@ class CommunityController {
         const communityUtil = new CommunityUtil(Community)
         const community = await communityUtil.getAll(references)
 
-        return { status: 200, error: undefined, data: community}
+        return { status: 200, error: undefined, data: community }
     }
     async show({ request }) {
         const { id } = request.params
@@ -31,14 +31,14 @@ class CommunityController {
 
     }
     async store({ request }) {
-        const { post,comment_post } = request.body
+        const { post, comment_post, user_id } = request.body
         const { references } = request.qs
         const validatedData = await CommunityValidator(request.body)
         if (validatedData.error)
             return { status: 422, error: validatedData.error, data: undefined }
-        
+
         const communityUtil = new CommunityUtil(Community)
-        const community = await communityUtil.create({ post,comment_post }, references)
+        const community = await communityUtil.create({ post, comment_post, user_id }, references)
 
         return { status: 200, error: undefined, data: community }
 
@@ -47,11 +47,11 @@ class CommunityController {
 
         const { body, params } = request
         const { id } = params
-        const { post,comment_post } = body
+        const { post, comment_post, user_id } = body
         const communityId = await Database
             .table('communities')
             .where({ community_id: id })
-            .update({ post,comment_post })
+            .update({ post, comment_post, user_id })
 
         const community = await Database
             .table('communities')
