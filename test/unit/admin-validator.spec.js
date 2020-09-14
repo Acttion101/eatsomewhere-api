@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = use('Test/Suite')('Admin Validator')
-const AdminUtil = require("../../util/AdminUtil")
+const AdminUtil = require("../../util/AdminUtil.func")
 const MockAdminModel = use("App/Models/Admin")
     //const adminValidator = require('../../service/TeacherValidator')
 

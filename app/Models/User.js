@@ -4,7 +4,6 @@
 const Model = use('Model')
 const Hash = use('Hash')
 class User extends Model {
-
     static boot() {
         super.boot()
         this.addHook('beforeSave', async(userInstance) => {
@@ -15,6 +14,12 @@ class User extends Model {
     }
     static get primaryKey() {
         return 'user_id'
+    }
+    static get createdAtColumn() {
+        return null
+    }
+    static get updatedAtColumn() {
+        return null
     }
 
     stores() {
