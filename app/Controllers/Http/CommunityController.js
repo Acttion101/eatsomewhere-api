@@ -2,7 +2,7 @@
 const Database = use('Database')
 const CommunityValidator = require("../../../service/CommunityValidator")
 const Community =use("App/Models/Community")
-const CommunityUtil = require("../../../util/Community")
+const CommunityUtil = require("../../../util/CommunityUtil.func")
 
 function numberTypeParamValidator(number) {
     if(Number.isNaN(parseInt(number))) 
