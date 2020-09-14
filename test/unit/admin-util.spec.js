@@ -1,7 +1,7 @@
 'use strict'
 
 const { test, trait } = use('Test/Suite')('Admin Validator')
-const AdminUtil = require("../../util/AdminUtil")
+const AdminUtil = require("../../util/AdminUtil.func")
 const Admin = use("App/Models/Admin")
 const urladmin = ('/api/v2/admins')
 trait('Test/ApiClient')
