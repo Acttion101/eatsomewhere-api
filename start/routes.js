@@ -22,8 +22,7 @@ Route.get('/', () => {
 
 Route.group(() => {
     Route.resource('/users', 'UserController')
-    Route.resource('/communitys', 'CommunityController')
-    Route.resource('/communitys/:id/User', 'CommunityController.showUser')
+    Route.resource('/communities', 'CommunityController')
     Route.resource('/admins', 'AdminController')
     Route.resource('/admin_update_news', 'AdminUpdateNewController')
     Route.resource('/news', 'NewsController')
