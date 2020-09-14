@@ -1,4 +1,4 @@
-class UserUtill {
+class UserUtil {
 
     constructor(UserModel) {
         this._User = UserModel
