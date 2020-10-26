@@ -19,6 +19,7 @@ Factory.blueprint('App/Models/User', (faker) => {
         first_name: faker.first(),
         last_name: faker.last(),
         age: faker.age(),
+        day_month_year:faker.birthday({ string: true }),
         username: faker.word(),
         password: faker.word({ length: 8 }),
         status: 'user'

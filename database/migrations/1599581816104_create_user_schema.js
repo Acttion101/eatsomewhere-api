@@ -10,6 +10,7 @@ class CreateUserSchema extends Schema {
             table.string('first_name', 150).notNullable()
             table.string('last_name', 150).notNullable()
             table.integer('age', 3).notNullable()
+            table.string('day_month_year').notNullable()
             table.string('username', 100).notNullable().unique()
             table.string('password').notNullable()
             table.string('status', 10)

@@ -24,7 +24,7 @@ test('should insert value to user table', async ({ client }) => {
         first_name: "John",
         last_name: "Doe",
         age: '20',
-        user_name: "Johnlnwza",
+        username: "Johnlnwza",
         password: "12345678",
         status: "user"
   }

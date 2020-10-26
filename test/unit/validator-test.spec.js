@@ -15,43 +15,43 @@ const CommunityValidator = require('../../service/CommunityValidator')
 
 const AdminValidator = require('../../service/AdminValidator')
 
-test('should return error with incorrect data that required from user validator', async ({ assert }) => {
+test('should return error with incorrect data that required from user validator', async({ assert }) => {
     const data = {
         first_name: "John",
         last_name: "Doe",
-          age: '20',
-          user_name: "Johnlnwza",
-          password: "12345678",
-          status: "user"
+        age: '20',
+        username: "Johnlnwza",
+        password: "12345678",
+        status: "user"
     }
     const user = await UserValidator(data)
-    assert.isOk(user.error,'user error')
-  })
+    assert.isOk(user.error, 'user error')
+})
 
-test('should receive object as first parameter from user validator', async ({ assert }) => {
+test('should receive object as first parameter from user validator', async({ assert }) => {
     const validatedData = await UserValidator({
-      first_name: "John",
-      last_name: "Doe",
+        first_name: "John",
+        last_name: "Doe",
         age: '20',
-        user_name: "Johnlnwza",
+        username: "Johnlnwza",
         password: "12345678",
         status: "user"
     })
     assert.isOk(validatedData)
-})  
-  test('should return undefined when pass correct data from user validator', async ({ assert }) => {
+})
+test('should return undefined when pass correct data from user validator', async({ assert }) => {
     const validatedData = await UserValidator({
         first_name: "John",
         last_name: "Doe",
         age: '20',
-        user_name: "Johnlnwza",
+        username: "Johnlnwza",
         password: "12345678",
         status: "user"
     })
-  
+
     assert.isArray(validatedData.error, undefined)
-  })
-  test('should receive object as first parameter from adminUpdate validator', async({ assert }) => {
+})
+test('should receive object as first parameter from adminUpdate validator', async({ assert }) => {
     const validatedData = await AdminUpdateValidator({
         news: 'ddeee',
         detail: 'ddddddddddddddddddd',
@@ -92,10 +92,10 @@ test('should return undefined when pass correct data from store validator', asyn
     assert.equal(validatedData.error, undefined)
 })
 
-test('should receive object as first parameter from community validator', async ({ assert }) => {
+test('should receive object as first parameter from community validator', async({ assert }) => {
     const validatedData = await CommunityValidator({
-      post: "this store is verygood",
-      comment_post:"good review"
+        post: "this store is verygood",
+        comment_post: "good review"
     })
     assert.isOk(validatedData)
 })
