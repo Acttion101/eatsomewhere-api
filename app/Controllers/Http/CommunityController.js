@@ -4,11 +4,6 @@ const CommunityValidator = require("../../../service/CommunityValidator")
 const Community = use("App/Models/Community")
 const CommunityUtil = require("../../../util/CommunityUtil.func")
 
-function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: `param: ${number} is not support, Pleasr use number type param instead. ` }
-    return {}
-}
 
 class CommunityController {
     async index({ request }) {
@@ -55,7 +50,7 @@ class CommunityController {
 
         const community = await Database
             .table('communities')
-            .where({ communitys_id: communityId })
+            .where({ community_id: communityId })
             .first()
 
         return { status: 200, error: undefined, data: community }

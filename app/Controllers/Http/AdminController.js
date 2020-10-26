@@ -5,11 +5,7 @@ const Admin = use("App/Models/Admin")
 const AdminUtil = require('../../../util/AdminUtil.func')
 const Hash = use('Hash')
 
-function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: `param: ${number} is not supported, please use number type param instead.` }
-    return {}
-}
+
 
 class AdminController {
     async index({ request }) {

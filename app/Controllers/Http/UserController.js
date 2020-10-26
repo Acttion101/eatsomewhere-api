@@ -4,12 +4,6 @@ const Database = use('Database')
 const User = use("App/Models/User")
 const UserUtil = require("../../../util/UserUtil.func")
 
-function numberTypeParamValidator(number) {
-    if(Number.isNaN(parseInt(number))) 
-        return { error:  `param: ${number} is not support, Pleasr use number type param instead. ` }
-    return {}
-}
-
 class UserController {
     async index({ request }) {
         const { references } = request.qs
@@ -31,14 +25,14 @@ class UserController {
 
     }
     async store({ request }) {
-        const { first_name, last_name, age, user_name, password, status } = request.body
+        const { first_name, last_name, age,day_month_year, username, password, status } = request.body
         const { references } = request.qs
         const validatedData = await UserValidator(request.body)
         if (validatedData.error)
             return { status: 422, error: validatedData.error, data: undefined }
 
         const userUtil = new UserUtil(User)
-        const user = await userUtil.create({ first_name, last_name, age, user_name, password, status}, references)
+        const user = await userUtil.create({ first_name, last_name, age,day_month_year, username, password, status}, references)
 
         return { status: 200, error: undefined, data: user }
 
@@ -47,13 +41,13 @@ class UserController {
 
         const { body, params } = request
         const { id } = params
-        const { first_name, last_name, age, user_name, password, status } = body
+        const { first_name, last_name, age,day_month_year, username, password, status } = body
 
 
         const userId = await Database
             .table('users')
             .where({ user_id: id })
-            .update({ first_name, last_name, age, user_name, password, status })
+            .update({ first_name, last_name, age,day_month_year, username, password, status })
 
         const user = await Database
             .table('users')

@@ -5,11 +5,7 @@ const Database = use('Database')
 const StoreValidator = require("../../../service/StoreValidator")
 const StoreUtil = require("../../../util/StoreUtil.func")
 
-function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: `param: ${number} is not supported, please use number type param instead.` }
-    return {}
-}
+
 
 class StoreController {
     async index({ request }) {

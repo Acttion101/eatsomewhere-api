@@ -5,11 +5,7 @@ const Database = use('Database')
 const NewValidator = require("../../../service/NewValidator")
 const NewUtil = require("../../../util/NewUtil.func")
 
-function numberTypeParamValidator(number) {
-    if (Number.isNaN(parseInt(number)))
-        return { error: `param: ${number} is not supported, please use number type param instead.` }
-    return {}
-}
+
 
 class NewsController {
     async index({ request }) {
