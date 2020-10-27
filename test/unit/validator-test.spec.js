@@ -122,7 +122,7 @@ test('should return only  one error if single incorrect data is passed from admi
         passsword: '010219saro',
         status: 'admin'
     })
-    assert.equal(validatedData.error.length, 2)
+    assert.equal(validatedData.error.length, 1)
 })
 
 test('should return undefined when pass correct data from admin validator', async({ assert }) => {

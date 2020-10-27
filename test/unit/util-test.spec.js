@@ -18,7 +18,7 @@ const MockCommunityModel = use("App/Models/Community")
 
 trait('Test/ApiClient')
 
-test("shculd get all user", async({ assert }) => {
+test("should get all user", async({ assert }) => {
     const communityUtil = new CommunityUtil(MockCommunityModel);
     const communitys = await communityUtil.getAll()
     assert.isObject(communitys)
@@ -34,6 +34,7 @@ test('get list of user', async({ client }) => {
         first_name: 'ddeee',
         last_name: 'ddddddddddddddddddd',
         age: '22',
+        day_month_year:'12/22/2020',
         username: 'sasasa',
         password: '12345679',
         status: 'admin'
